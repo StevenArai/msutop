@@ -6,3 +6,6 @@ Archive SHA256: 12a30719acfd52da071cc98733c0fb758acb46f2523b499b8e315a7d772d0465
 BDF pixels are packed without resampling or outline rasterization.
 Permission and full provenance: k6x8.txt
 ASCII labels retain the existing Adafruit 6x8 glyphs.
+
+The BDF source is stored losslessly in k6x8_gothic.bdf.gz.
+Uncompressed BDF SHA256: b9029fa0dd93738c23e55b79ffb1f4445f51a57d09f2f9436b2c4d5ee6fe0590

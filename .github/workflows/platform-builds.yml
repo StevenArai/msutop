@@ -43,8 +43,6 @@ jobs:
   macos:
     name: macOS / isolated native app
     runs-on: macos-15
-    env:
-      MSUTOP_PACKAGE_DIR: ${{ runner.temp }}/msutop-package
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Install Mac-only Rust toolchain
@@ -54,6 +52,8 @@ jobs:
       - name: Compare original renderer pixels and animations
         run: ./macos/scripts/build-renderer.sh --test
       - name: Build and verify signed app
+        env:
+          MSUTOP_PACKAGE_DIR: ${{ runner.temp }}/msutop-package
         run: ./macos/scripts/build.sh
       - name: Check live Mac sampling
         run: python3 macos/scripts/smoke-test.py

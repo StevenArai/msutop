@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Preserve k6x8's actual BDF bitmap pixels in a compact Unicode lookup table."""
 from pathlib import Path
+import gzip
 import re
 import struct
 
 root = Path(__file__).resolve().parents[1]
-source = root / "assets/fonts/k6x8/k6x8_gothic.bdf"
-text = source.read_text()
+source = root / "assets/fonts/k6x8/k6x8_gothic.bdf.gz"
+text = gzip.decompress(source.read_bytes()).decode("utf-8")
 ascent = int(re.search(r"^FONT_ASCENT (\d+)$", text, re.M)[1])
 glyphs = {}
 for block in re.findall(r"STARTCHAR .*?\n(.*?)ENDCHAR", text, re.S):
