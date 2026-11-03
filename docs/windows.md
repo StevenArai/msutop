@@ -1,7 +1,7 @@
 # Windows 使用说明
 
-从 [Releases](https://github.com/StevenArai/msutop/releases/latest) 下载
-`msutop-v0.1.0-windows-x86_64.zip`，完整解压后双击 `00-PREVIEW.cmd`，或在该目录运行：
+从 [最新 Release](https://github.com/StevenArai/msutop/releases/latest) 页面下载
+Windows x86_64 ZIP 包，完整解压后双击 `00-PREVIEW.cmd`，或在该目录运行：
 
 ```powershell
 .\msutop.exe
@@ -11,8 +11,8 @@
 Python 或 Visual C++ 运行库。请将 `SDL2.dll` 留在 EXE 旁边。构建使用 Rust 1.88
 的 x86_64 Windows GNU 工具链和官方 MinGW SDL2。
 
-Windows 目前使用 mock 监控数据，用于调试完整 160×80 界面；真实 `/proc`、`/sys`
-采集在 Linux 上由 `--live` 开启。Windows 可以将 mock 画面通过同一串口协议发给屏幕。
+Windows 目前使用模拟监控数据（mock），用于调试完整 160×80 界面；
+Linux 加 `--live` 采集真实系统数据。Windows 可以把模拟画面通过串口发给屏幕。
 
 ## 预览参数
 
@@ -26,8 +26,8 @@ Windows 目前使用 mock 监控数据，用于调试完整 160×80 界面；真
 
 `--scene` 可选 `balanced`、`idle`、`cpu`、`io`、`memory`、`offline`。
 `--mock-threads N` 可预览 1..512 个逻辑线程的响应式 CPU 柱布局。
-`--scale` 是 1..16 的整数最近邻放大。默认数据更新 30Hz，窗口跟随显示器 VSync
-呈现（如 60Hz）；所有监控区始终同时可见。
+`--scale` 是 1..16 的整数放大倍数，保持清晰像素。默认每秒更新 30 次数据，
+窗口跟随显示器垂直同步（VSync）呈现，例如 60Hz；所有监控区始终同时可见。
 
 | 按键 | 操作 |
 |---|---|
@@ -42,7 +42,8 @@ Windows 目前使用 mock 监控数据，用于调试完整 160×80 界面；真
 
 ## 接 MSU 屏幕
 
-确认设备的实际 COM 号，屏幕须支持 R / RGB565 v1 协议，并处于终端模式：
+确认设备的实际 COM 号，屏幕固件须支持 msutop 使用的 R / RGB565 v1 图像协议，
+并处于可接收首次握手的终端模式。仅有串口连接不足以保证兼容：
 
 ```powershell
 .\msutop.exe --msu COM5 --fps 30 --seconds 30
@@ -54,12 +55,11 @@ Windows 目前使用 mock 监控数据，用于调试完整 160×80 界面；真
 .\msutop.exe --msu COM5 --msu-ready --seconds 30
 ```
 
-传输使用 RAW FULL + pipeline，每帧覆盖 160×80，保留 RGB565 颜色与 AA。
-每帧十条带和 COMMIT 的 11 个 ACK 必须全部匹配。退出保留最后画面；错误或切换
-二进制模式后须复位回终端重新握手。程序不会自动烧录固件。
+每次完整发送一张 160×80 画面，保留 RGB565 颜色与抗锯齿效果，收到匹配的
+设备回复后再发下一帧。退出保留最后画面；错误或切换图像模式后须复位回终端
+重新握手。程序不会自动烧录固件。协议细节见 [rgb565.md](rgb565.md)。
 
 `--seconds N` 或 `--frames N` 可限制运行时间；没有这两个参数时串口模式只发一帧。
-具体线格式见 [rgb565.md](rgb565.md)。
 
 ## 输出帧
 

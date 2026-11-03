@@ -26,7 +26,7 @@ try {
     }
     $docsRoot = Join-Path $packageRoot 'docs'
     New-Item -ItemType Directory -Path $docsRoot -Force | Out-Null
-    foreach ($name in @('windows.md','rgb565.md','pve-r-full-profile.json','pve-r-full.gif')) {
+    foreach ($name in @('windows.md','rgb565.md','performance.md','pve-r-full-profile.json','pve-r-full.gif')) {
         Copy-Item -LiteralPath (Join-Path $projectRoot "docs\$name") -Destination (Join-Path $docsRoot $name)
     }
     $readme = "# msutop v$Version for Windows x86_64`n`nDouble-click ``00-PREVIEW.cmd`` or run ``.\msutop.exe`` after extracting the whole package.`n`nSee [Windows usage](docs/windows.md) for preview, serial output, and build instructions.`n`nKeep ``SDL2.dll`` beside ``msutop.exe``. Windows uses mock telemetry; Linux ``--live`` collects actual counters.`n`nProject: https://github.com/StevenArai/msutop`nLicense: MIT; third-party notices are in ``NOTICE.md`` and ``licenses/``.`n"
