@@ -1,0 +1,8 @@
+/target/
+/.deps/
+/.reference/
+/output/
+*.rgb565
+__pycache__/
+*.pyc
+/dist/

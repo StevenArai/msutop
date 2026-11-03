@@ -1,0 +1,30 @@
+[package]
+name = "msutop"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.88"
+description = "A fixed 160x80 RGB565 system monitor with SDL preview and MSU serial output"
+license = "MIT"
+repository = "https://github.com/StevenArai/msutop"
+authors = ["StevenArai"]
+
+[features]
+default = []
+sdl = ["dep:sdl2"]
+serial = ["dep:serialport"]
+
+[dependencies]
+sdl2 = { version = "0.38", optional = true }
+serialport = { version = "4.8.1", default-features = false, optional = true }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+rustix = { version = "1", features = ["fs", "param", "time"] }
+serde_json = "1"
