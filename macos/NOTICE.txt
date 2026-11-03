@@ -1,0 +1,35 @@
+msutop Mac is a native macOS adaptation using the original renderer from:
+https://github.com/StevenArai/msutop
+The renderer is compiled directly from the repository root src/ directory.
+
+Pixel font: Adafruit GFX classic ASCII font, converted from msutop/assets/font6x8.h.
+Copyright (c) 2012 Adafruit Industries. BSD-2-Clause.
+See licenses/Adafruit-GFX-BSD-2-Clause.txt.
+
+Palette derived from msutop/src/theme.rs and btop Default_theme.
+btop Copyright 2021 Aristocratos, Apache-2.0.
+See licenses/btop-Apache-2.0.txt and licenses/msutop-MIT.txt.
+
+The original Rust UI, smoothing, pixel history, antialiasing, gradients, rings,
+activity-lamp timing and process selection are compiled into this app unchanged.
+Sources/canvases.rs includes ../../src/ui.rs and adds a narrower GPU/storage
+extension. The complete left panel retains the original 6x8 process font and
+usage/power/temperature/frequency CPU fields. Other compact values use the
+original 3x5 font. Volume labels bypass
+the low-resolution framebuffer: ASCII uses Adafruit 6x8 glyphs; Japanese uses
+hand-designed k6x8 Gothic 6x8 bitmaps, Copyright (C) 2000-2023 Num Kadoma.
+These smaller overlay glyphs are aligned to physical screen pixels without
+antialiasing. See licenses/k6x8-Num-Kadoma.txt for permission and provenance.
+The text overlay is cached. Font provenance and limitations are retained in
+licenses/msutop-NOTICE.md. Rust standard-library notices are in
+licenses/Rust-COPYRIGHT-library.html.
+
+The macOS sampler, desktop integration, FFI and two-canvas arrangement are local
+adaptations. No upstream shell scripts or executables are run by this app.
+
+CPU power, temperature and frequency are read by a separate bundled helper using
+macmon 0.10.0 library code, Copyright (c) 2024 vladkens, MIT license.
+Source: https://github.com/vladkens/macmon
+Revision: 39e98aa73e49256e6281b2a228f6ef3499ae3209
+See vendor/macmon/UPSTREAM.txt, licenses/macmon-MIT.txt and
+licenses/sensor-dependencies/ for the library and dependency notices.

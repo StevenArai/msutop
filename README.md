@@ -24,6 +24,11 @@ Windows 可直接下载运行，用模拟数据查看界面；Linux 可采集实
 请把 DLL 留在 EXE 旁边。参数、按键和串口使用方法见
 [Windows 使用说明](docs/windows.md)。
 
+## macOS 桌面版
+
+macOS 原生实时监控与可选 GPU/多卷扩展见 [Mac 构建和使用说明](macos/README.md)。
+Mac 代码与依赖独立在 `macos/`；以下 Linux/Windows 用法保持不变。
+
 ## Features
 
 | 区域 | 同时显示的指标 |

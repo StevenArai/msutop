@@ -1,0 +1,59 @@
+name: Platform builds
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux / original SDL and serial targets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install original target prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsdl2-dev pkg-config
+          rustup toolchain install 1.88.0 --profile minimal --component clippy --component rustfmt
+      - name: Build original target
+        run: cargo +1.88.0 build --release --locked --features sdl,serial
+      - name: Test and lint original target
+        run: |
+          cargo +1.88.0 test --locked --all-targets --features sdl,serial
+          cargo +1.88.0 clippy --locked --all-targets --features sdl,serial -- -D warnings
+          cargo +1.88.0 fmt --all -- --check
+
+  windows:
+    name: Windows / original GNU SDL and serial targets
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Build with original Windows script
+        shell: pwsh
+        run: ./scripts/preview.ps1 -BuildOnly
+      - name: Test and lint with original Windows script
+        shell: pwsh
+        run: |
+          $env:PATH = "$pwd/.deps/SDL2-2.32.10/x86_64-w64-mingw32/bin;$env:PATH"
+          ./scripts/preview.ps1 -BuildOnly -Check
+
+  macos:
+    name: macOS / isolated native app
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install Mac-only Rust toolchain
+        run: |
+          rustup toolchain install 1.90.0 --profile minimal
+          rustup default 1.90.0
+      - name: Compare original renderer pixels and animations
+        run: ./macos/scripts/build-renderer.sh --test
+      - name: Build and verify signed app
+        env:
+          MSUTOP_PACKAGE_DIR: ${{ runner.temp }}/msutop-package
+        run: ./macos/scripts/build.sh
+      - name: Check live Mac sampling
+        run: python3 macos/scripts/smoke-test.py
