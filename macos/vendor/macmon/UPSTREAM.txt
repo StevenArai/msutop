@@ -1,0 +1,5 @@
+Source: https://github.com/vladkens/macmon
+Revision: 39e98aa73e49256e6281b2a228f6ef3499ae3209
+License: MIT, Copyright (c) 2024 vladkens
+The five library .rs files are unchanged. The Cargo manifest is reduced to
+library-only dependencies; the TUI, HTTP server and CLI are not included.
