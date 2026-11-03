@@ -130,5 +130,5 @@ Windows 发布包重建见 [构建说明](docs/windows.md#从源码构建)。
 msutop 原创代码采用 [MIT](LICENSE)。6×8 字符格使用 Adafruit GFX 的 BSD 字体，
 SDL2、btop 配色和串口库保留各自的许可。
 
-credits_vfd 3×5 字模的作者及再分发授权正在核对，不能因来源未声明许可证就
-推定它采用 MIT。当前确认情况见 [NOTICE.md](NOTICE.md#3x5-values)。
+3×5 字模由 StevenArai 为 credits_vfd 制作和调整，参考设计的原始来源不可考；
+MIT 覆盖作者自身贡献。完整来源说明见 [NOTICE.md](NOTICE.md#3x5-values)。

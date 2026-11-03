@@ -1,8 +1,9 @@
 # Licenses and sources
 
-msutop's original Rust implementation, scripts, and documentation are published
-under the MIT license in `LICENSE`. Third-party code and font assets are subject
-to their own permissions; the project license does not replace those terms.
+msutop's original Rust implementation, scripts, documentation, and the author's
+own glyph contributions are published under the MIT license in `LICENSE`.
+Third-party code and assets retain their applicable permissions; this license
+does not grant rights over third-party material.
 
 ## 6x8 text cells
 
@@ -21,15 +22,10 @@ no Linux kernel font is included in this release.
 credits_vfd project, source commit `20d5a8a108df38753b96bc66c7187f5afea3b50e`.
 The original file is `src/font_generated.inc`, SHA-256
 `1779c1fed58a8212bbfec8decc7e128a6f0fe3d7bfb91e6159fd65af34c7aef9`.
-Its row-major, bit-14-first glyphs and user edits are unchanged. The supplied
-source and its local history do not contain a separate font license or an
-explicit rights-holder grant. Authorship and redistribution permission for the
-underlying glyphs are pending confirmation. No MIT grant is asserted for this
-asset merely because it was user-supplied or lacked a license notice.
-
-The previous notice's statement that this asset was included under MIT release
-terms was unsupported and is withdrawn. The project's MIT license applies to
-the original code described above, not to unverified third-party rights.
+Its row-major, bit-14-first patterns are unchanged. StevenArai prepared and
+edited these glyphs for credits_vfd with reference to designs whose original
+sources could not be traced. StevenArai's own contributions are released under
+MIT; this does not assert a license over third-party reference material.
 
 ## btop colors
 
