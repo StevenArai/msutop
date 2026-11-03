@@ -186,7 +186,9 @@ final class MonitorView: NSView {
         guard let bitmap = bitmapImageRepForCachingDisplay(in: bounds),
               let png = { () -> Data? in cacheDisplay(in: bounds, to: bitmap); return bitmap.representation(using: .png, properties: [:]) }()
         else { throw NSError(domain: appName, code: 1) }
-        try png.write(to: URL(fileURLWithPath: path))
+        let destination = URL(fileURLWithPath: path)
+        try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try png.write(to: destination)
     }
 }
 
